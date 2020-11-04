@@ -19,4 +19,11 @@ public class UserController {
         userService.registUser(user);
     }
 
+
+    @PostMapping(value = "/login")
+    @ResponseStatus(HttpStatus.OK)
+    public void signIn(@Valid @RequestParam String username, @RequestParam String password) {
+        userService.signIn(username,password);
+    }
+
 }

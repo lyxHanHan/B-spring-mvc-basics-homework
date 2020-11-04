@@ -16,8 +16,8 @@ public class UserService {
     public UserService(){
 
 
-        userMap.put(1,new User("xiaoming","12","11111111111@qq.com"));
-        userMap.put(2,new User("xiaoli","12","11111111111@qq.com"));
+        userMap.put(1,new User("xiaoming","1234567","11111111111@qq.com"));
+        userMap.put(2,new User("xiaoli","1234567","11111111111@qq.com"));
     }
 
     private Integer getId(){
@@ -33,5 +33,14 @@ public class UserService {
         Integer id = getId();
         userMap.put(id,user);
     }
+
+    public User signIn(String username, String password) {
+        User user = userMap.get(1);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "can not found this user");
+        }
+        return user;
+    }
+
     }
 
