@@ -1,18 +1,37 @@
 package com.thoughtworks.capacity.gtb.mvc;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
     private Map<Integer,User> userMap = new HashMap<>();
 
     public UserService(){
-        userMap.put(1,new User());
-        userMap.put(2,new User());
+
+
+        userMap.put(1,new User("xiaoming","12","11111111111@qq.com"));
+        userMap.put(2,new User("xiaoli","12","11111111111@qq.com"));
     }
 
-    public void registUser(User user) {userMap.put(user);}
-}
+    private Integer getId(){
+        return userMap.keySet().stream().sorted(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1 - o2;
+            }
+        }).collect(Collectors.toList()).get(0)+1;
+    }
+
+    public void registUser(User user) {
+        Integer id = getId();
+        userMap.put(id,user);
+    }
+    }
+
